@@ -108,4 +108,4 @@ Modern evergreen browsers (Chrome, Edge, Firefox, Safari). No IE support.
 
 ## License
 
-Internal use — TLC Development Team.
+Internal use — Mark L. Sicad.

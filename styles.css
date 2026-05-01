@@ -1,0 +1,507 @@
+/* ============================================
+   TLC E-Reserve — Custom styles (Tailwind-augmented)
+   ============================================ */
+
+html { scroll-behavior: smooth; }
+body { 
+  -webkit-font-smoothing: antialiased;
+  -webkit-tap-highlight-color: transparent;
+  padding-top: env(safe-area-inset-top);
+  padding-bottom: env(safe-area-inset-bottom);
+  padding-left: env(safe-area-inset-left);
+  padding-right: env(safe-area-inset-right);
+}
+
+/* Subtle hero background gradient */
+.hero-gradient {
+  background:
+    radial-gradient(1200px 600px at 10% -10%, rgba(37,99,235,0.08), transparent 60%),
+    radial-gradient(900px 500px at 110% 10%, rgba(59,130,246,0.10), transparent 60%),
+    linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
+}
+
+.dark .hero-gradient {
+  background:
+    radial-gradient(1200px 600px at 10% -10%, rgba(37,99,235,0.22), transparent 60%),
+    radial-gradient(900px 500px at 110% 10%, rgba(59,130,246,0.18), transparent 60%),
+    linear-gradient(180deg, #020617 0%, #0b1220 100%);
+}
+
+/* Sticky navbar shadow on scroll */
+#navbar.scrolled {
+  box-shadow: 0 8px 24px -16px rgba(2, 6, 23, 0.18);
+  background-color: rgba(255, 255, 255, 0.92);
+}
+
+.dark #navbar.scrolled {
+  box-shadow: 0 8px 24px -16px rgba(0, 0, 0, 0.55);
+  background-color: rgba(2, 6, 23, 0.80);
+}
+
+/* ====== PHONE MOCKUP ====== */
+.phone-mockup {
+  position: relative;
+  width: min(280px, 45vw);
+  height: min(570px, 90vw);
+  background: #0f172a;
+  border-radius: 44px;
+  padding: 14px;
+  box-shadow:
+    0 30px 60px -20px rgba(2, 6, 23, 0.35),
+    inset 0 0 0 2px rgba(255,255,255,0.06);
+}
+@media (min-width: 640px) {
+  .phone-mockup { width: min(300px, 40vw); height: min(610px, 85vw); }
+}
+@media (min-width: 1024px) {
+  .phone-mockup { width: 320px; height: 640px; }
+}
+.phone-screen {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: 32px;
+  overflow: hidden;
+  background: linear-gradient(160deg, #dbeafe 0%, #ffffff 50%, #eff6ff 100%);
+}
+.phone-notch {
+  position: absolute;
+  top: 18px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 110px;
+  height: 22px;
+  background: #0f172a;
+  border-radius: 999px;
+  z-index: 2;
+}
+
+/* ====== STEP CARDS ====== */
+.step-card {
+  position: relative;
+  background: #ffffff;
+  border: 1px solid rgb(241 245 249);
+  border-radius: 1rem;
+  padding: 1.75rem 1.5rem 1.5rem;
+  box-shadow: 0 10px 30px -18px rgba(2, 6, 23, 0.12);
+  transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease;
+}
+.step-card:hover {
+  transform: translateY(-4px);
+  border-color: rgb(191 219 254);
+  box-shadow: 0 20px 40px -20px rgba(37, 99, 235, 0.25);
+}
+.step-card .step-number {
+  position: absolute;
+  top: -14px;
+  left: 1.5rem;
+  width: 32px;
+  height: 32px;
+  border-radius: 10px;
+  background: #2563eb;
+  color: white;
+  font-weight: 700;
+  font-size: 0.875rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 8px 20px -8px rgba(37, 99, 235, 0.6);
+}
+.step-card .step-icon {
+  width: 28px;
+  height: 28px;
+  color: #2563eb;
+  margin-top: 0.5rem;
+}
+.step-card h3 {
+  margin-top: 0.75rem;
+  font-weight: 600;
+  color: rgb(15 23 42);
+}
+.step-card p {
+  margin-top: 0.4rem;
+  font-size: 0.875rem;
+  color: rgb(71 85 105);
+  line-height: 1.55;
+}
+
+.dark .step-card {
+  background: rgba(15, 23, 42, 0.65);
+  border-color: rgba(51, 65, 85, 0.65);
+  box-shadow: 0 18px 46px -32px rgba(0, 0, 0, 0.65);
+}
+.dark .step-card:hover {
+  border-color: rgba(59, 130, 246, 0.55);
+  box-shadow: 0 26px 60px -38px rgba(59, 130, 246, 0.25);
+}
+.dark .step-card h3 { color: rgb(226 232 240); }
+.dark .step-card p { color: rgb(148 163 184); }
+
+/* ====== FEATURE CARDS ====== */
+.feature-card {
+  background: white;
+  border: 1px solid rgb(241 245 249);
+  border-radius: 1rem;
+  padding: 1.5rem;
+  box-shadow: 0 10px 30px -18px rgba(2, 6, 23, 0.10);
+  transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease;
+}
+.feature-card:hover {
+  transform: translateY(-4px);
+  border-color: rgb(191 219 254);
+  box-shadow: 0 20px 40px -20px rgba(37, 99, 235, 0.22);
+}
+.feature-card .feature-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background: rgb(239 246 255);
+  color: #2563eb;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+.feature-card .feature-icon i { width: 22px; height: 22px; }
+.feature-card h3 {
+  margin-top: 1rem;
+  font-weight: 600;
+  color: rgb(15 23 42);
+}
+.feature-card p {
+  margin-top: 0.4rem;
+  font-size: 0.9rem;
+  color: rgb(71 85 105);
+  line-height: 1.55;
+}
+
+.dark .feature-card {
+  background: rgba(15, 23, 42, 0.65);
+  border-color: rgba(51, 65, 85, 0.65);
+  box-shadow: 0 18px 46px -32px rgba(0, 0, 0, 0.65);
+}
+.dark .feature-card h3 { color: rgb(226 232 240); }
+.dark .feature-card p { color: rgb(148 163 184); }
+.dark .feature-card .feature-icon {
+  background: rgba(37, 99, 235, 0.18);
+  color: #93c5fd;
+}
+
+/* ====== INFO CARDS ====== */
+.info-card {
+  background: white;
+  border: 1px solid rgb(241 245 249);
+  border-radius: 1rem;
+  padding: 1.5rem;
+  box-shadow: 0 10px 30px -18px rgba(2, 6, 23, 0.08);
+  transition: transform .25s ease, border-color .25s ease;
+}
+.info-card:hover { transform: translateY(-3px); border-color: rgb(191 219 254); }
+.info-card .info-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  background: rgb(239 246 255);
+  color: #2563eb;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+.info-card .info-icon i { width: 20px; height: 20px; }
+.info-card h3 { margin-top: 0.85rem; font-weight: 600; color: rgb(15 23 42); }
+.info-card p { margin-top: 0.3rem; font-size: 0.9rem; color: rgb(71 85 105); }
+
+.dark .info-card {
+  background: rgba(15, 23, 42, 0.65);
+  border-color: rgba(51, 65, 85, 0.65);
+  box-shadow: 0 18px 46px -32px rgba(0, 0, 0, 0.65);
+}
+.dark .info-card h3 { color: rgb(226 232 240); }
+.dark .info-card p { color: rgb(148 163 184); }
+.dark .info-card .info-icon {
+  background: rgba(37, 99, 235, 0.18);
+  color: #93c5fd;
+}
+
+/* ====== SCREENSHOT GRID ====== */
+.screenshot {
+  position: relative;
+  display: block;
+  /* overflow visible so phone chrome peeks out on hover */
+  overflow: visible;
+  border-radius: 1.25rem;
+  background: #f1f5f9;
+  border: none;
+  aspect-ratio: 9 / 16;
+  cursor: zoom-in;
+  padding: 0;
+  transition: transform .35s cubic-bezier(.34,1.4,.64,1), box-shadow .35s ease;
+}
+
+/* Touch device support - show phone frame on tap */
+@media (hover: none) {
+  .screenshot::after,
+  .screenshot::before,
+  .screenshot .ss-notch,
+  .screenshot .ss-pill {
+    opacity: 1;
+  }
+  .screenshot:hover {
+    transform: none;
+  }
+}
+
+/* ---- inner image — clipped to rounded rect ---- */
+.screenshot img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  border-radius: 1.25rem;
+  position: relative;
+  z-index: 1;
+  transition: border-radius .2s ease;
+}
+
+/* ---- Android phone BEZEL (::after = outer frame border) ---- */
+.screenshot::after {
+  content: '';
+  position: absolute;
+  inset: -4px;
+  border-radius: 1.65rem;
+  border: 4px solid #1e293b;
+  box-shadow:
+    inset 0 0 0 1px rgba(255,255,255,0.08),
+    0 0 0 2px rgba(37,99,235,0.55),
+    0 28px 56px -20px rgba(37,99,235,0.45);
+  opacity: 0;
+  transition: opacity .25s ease;
+  pointer-events: none;
+  z-index: 3;
+}
+
+/* ---- Punch-hole / notch ---- */
+.ss-notch {
+  position: absolute;
+  top: 6px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 42%;
+  max-width: 64px;
+  height: 10px;
+  background: #0f172a;
+  border-radius: 0 0 10px 10px;
+  z-index: 4;
+  opacity: 0;
+  transition: opacity .2s ease;
+  pointer-events: none;
+}
+
+/* ---- Home indicator pill ---- */
+.ss-pill {
+  position: absolute;
+  bottom: 7px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 38%;
+  max-width: 52px;
+  height: 4px;
+  background: rgba(255,255,255,0.5);
+  border-radius: 999px;
+  z-index: 4;
+  opacity: 0;
+  transition: opacity .2s ease;
+  pointer-events: none;
+}
+
+/* ---- Power button (right side ::before) ---- */
+.screenshot::before {
+  content: '';
+  position: absolute;
+  right: -8px;
+  top: 22%;
+  width: 4px;
+  height: 18%;
+  background: #1e293b;
+  border-radius: 0 3px 3px 0;
+  opacity: 0;
+  transition: opacity .2s ease;
+  z-index: 4;
+  pointer-events: none;
+}
+
+/* ====== HOVER STATE ====== */
+.screenshot:hover {
+  transform: translateY(-14px) scale(1.08);
+  z-index: 10;
+}
+.screenshot:hover::after  { opacity: 1; }
+.screenshot:hover::before { opacity: 1; }
+.screenshot:hover .ss-notch { opacity: 1; }
+.screenshot:hover .ss-pill  { opacity: 1; }
+.screenshot:hover img { border-radius: 1rem; }
+
+.dark .screenshot { background: rgba(15, 23, 42, 0.8); }
+.dark .screenshot::after {
+  border-color: #334155;
+  box-shadow:
+    inset 0 0 0 1px rgba(255,255,255,0.06),
+    0 0 0 2px rgba(99,160,255,0.5),
+    0 28px 56px -20px rgba(37,99,235,0.5);
+}
+.dark .ss-notch { background: #020617; }
+
+/* ====== LIGHTBOX ====== */
+#lightbox.is-open { display: flex; }
+
+/* Larger close button for touch devices */
+#lightboxClose {
+  min-width: 48px;
+  min-height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0,0,0,0.3);
+  border-radius: 50%;
+  transition: background 0.2s ease;
+}
+#lightboxClose:hover,
+#lightboxClose:active {
+  background: rgba(0,0,0,0.5);
+}
+
+/* ---- Android phone frame in lightbox ---- */
+.lb-phone {
+  position: relative;
+  background: #0f172a;
+  border-radius: 44px;
+  padding: 14px 10px 18px;
+  box-shadow:
+    0 0 0 2px #1e293b,
+    0 0 0 5px rgba(37,99,235,0.5),
+    0 50px 100px -30px rgba(0,0,0,0.9);
+  max-height: min(92vh, 92dvh);
+  max-width: 95vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  animation: lb-pop .35s cubic-bezier(.34,1.4,.64,1);
+}
+
+@keyframes lb-pop {
+  from { transform: scale(0.7); opacity: 0; }
+  to   { transform: scale(1);   opacity: 1; }
+}
+
+/* notch bar */
+.lb-notch {
+  width: 110px;
+  height: 20px;
+  background: #0f172a;
+  border-radius: 0 0 16px 16px;
+  position: absolute;
+  top: 14px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 2;
+  border: 2px solid rgba(255,255,255,0.04);
+}
+
+/* front speaker slit */
+.lb-speaker {
+  width: 52px;
+  height: 5px;
+  background: rgba(255,255,255,0.12);
+  border-radius: 999px;
+  margin-bottom: 10px;
+  margin-top: 8px;
+  flex-shrink: 0;
+}
+
+/* volume buttons (left) */
+.lb-vol-up,
+.lb-vol-dn {
+  position: absolute;
+  left: -7px;
+  width: 4px;
+  height: 34px;
+  background: #1e3a8a;
+  border-radius: 3px 0 0 3px;
+}
+.lb-vol-up { top: 22%; }
+.lb-vol-dn { top: 36%; }
+
+/* power button (right) */
+.lb-power {
+  position: absolute;
+  right: -7px;
+  top: 28%;
+  width: 4px;
+  height: 48px;
+  background: #1e3a8a;
+  border-radius: 0 3px 3px 0;
+}
+
+/* screen area */
+.lb-screen {
+  border-radius: 28px;
+  overflow: hidden;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  background: #000;
+  min-height: 0;
+}
+
+.lb-screen img {
+  display: block;
+  max-height: calc(min(92vh, 92dvh) - 120px);
+  width: auto;
+  max-width: min(360px, 90vw);
+  object-fit: contain;
+}
+
+/* home indicator */
+.lb-pill {
+  width: 100px;
+  height: 5px;
+  background: rgba(255,255,255,0.25);
+  border-radius: 999px;
+  margin-top: 10px;
+  flex-shrink: 0;
+}
+
+/* ====== SCROLLBAR (subtle) ====== */
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-track { background: #f1f5f9; }
+::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 999px; }
+::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+
+/* Mobile scrollbar fallback - thinner for touch */
+@media (max-width: 768px) {
+  ::-webkit-scrollbar { width: 6px; height: 6px; }
+  ::-webkit-scrollbar-thumb { background: #94a3b8; }
+}
+
+.dark ::-webkit-scrollbar-track { background: #0b1220; }
+.dark ::-webkit-scrollbar-thumb { background: #334155; }
+.dark ::-webkit-scrollbar-thumb:hover { background: #475569; }
+
+/* ====== TOUCH FEEDBACK ====== */
+/* Active states for better touch feedback */
+@media (hover: none) {
+  button:active,
+  a:active {
+    opacity: 0.7;
+    transform: scale(0.98);
+  }
+  
+  .step-card:active,
+  .feature-card:active,
+  .info-card:active {
+    transform: scale(0.98);
+  }
+  
+  .screenshot:active {
+    transform: scale(0.95);
+  }
+}

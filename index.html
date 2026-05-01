@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="description" content="TLC E-Reserve: A Mobile Based Facility Reservation System for TLC. Reserve rooms, facilities, and equipment efficiently from your Android device." />
+  <title>TLC E-Reserve: A Mobile Based Facility Reservation System for TLC</title>
+  <link rel="icon" type="image/png" href="assets/logo.png" />
+  
+  <!-- iOS-specific meta tags -->
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <meta name="apple-mobile-web-app-title" content="TLC E-Reserve" />
+  <link rel="apple-touch-icon" href="assets/logo.png" />
+  
+  <!-- Theme color for mobile browsers -->
+  <meta name="theme-color" content="#3b82f6" />
+  <meta name="msapplication-TileColor" content="#3b82f6" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+
+  <!-- Tailwind CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: { sans: ['Inter', 'system-ui', 'sans-serif'] },
+          colors: {
+            brand: {
+              50:  '#eff6ff',
+              100: '#dbeafe',
+              200: '#bfdbfe',
+              500: '#3b82f6',
+              600: '#2563eb',
+              700: '#1d4ed8',
+              800: '#1e40af',
+              900: '#1e3a8a'
+            }
+          },
+          boxShadow: {
+            soft: '0 10px 30px -12px rgba(2, 6, 23, 0.15)'
+          }
+        }
+      }
+    };
+  </script>
+
+  <!-- AOS scroll animations -->
+  <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet" />
+
+  <!-- Lucide icons -->
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body class="font-sans bg-white text-slate-800 antialiased dark:bg-slate-950 dark:text-slate-100">
+
+  <!-- ========== STICKY NAVBAR ========== -->
+  <header id="navbar" class="fixed top-0 inset-x-0 z-50 transition-all duration-300 bg-white/80 backdrop-blur border-b border-slate-200/60 dark:bg-slate-950/70 dark:border-slate-800/70">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16">
+        <a href="#home" class="flex items-center">
+          <img src="assets/logo.png" alt="TLC E-Reserve" class="h-9 sm:h-10 w-auto object-contain" />
+        </a>
+
+        <nav class="hidden md:flex items-center gap-8 text-sm font-medium text-slate-600 dark:text-slate-300">
+          <a href="#about"       class="hover:text-brand-600 transition">About</a>
+          <a href="#how-to-use"  class="hover:text-brand-600 transition">How to Use</a>
+          <a href="#features"    class="hover:text-brand-600 transition">Features</a>
+          <a href="#screenshots" class="hover:text-brand-600 transition">Screenshots</a>
+          <a href="#download"    class="hover:text-brand-600 transition">Download</a>
+          <a href="#contact"     class="hover:text-brand-600 transition">Contact</a>
+        </nav>
+
+        <div class="hidden md:flex items-center gap-2">
+          <button id="themeToggle" type="button" class="inline-flex items-center justify-center min-w-[44px] min-h-[44px] rounded-lg text-slate-700 hover:bg-slate-100 dark:text-slate-200 dark:hover:bg-slate-800" aria-label="Toggle theme">
+            <i id="iconSun" data-lucide="sun" class="w-5 h-5 hidden"></i>
+            <i id="iconMoon" data-lucide="moon" class="w-5 h-5 hidden"></i>
+          </button>
+          <a href="#download" class="inline-flex items-center gap-2 bg-brand-600 hover:bg-brand-700 text-white text-sm font-semibold px-4 py-2 rounded-lg shadow-soft transition">
+            <i data-lucide="download" class="w-4 h-4"></i> Download APK
+          </a>
+        </div>
+
+        <div class="md:hidden flex items-center gap-2">
+          <button id="themeToggleMobile" type="button" class="inline-flex items-center justify-center min-w-[44px] min-h-[44px] rounded-lg text-slate-700 hover:bg-slate-100 dark:text-slate-200 dark:hover:bg-slate-800" aria-label="Toggle theme">
+            <i id="iconSunMobile" data-lucide="sun" class="w-5 h-5 hidden"></i>
+            <i id="iconMoonMobile" data-lucide="moon" class="w-5 h-5 hidden"></i>
+          </button>
+          <button id="menuBtn" class="inline-flex items-center justify-center min-w-[44px] min-h-[44px] rounded-lg text-slate-700 hover:bg-slate-100 dark:text-slate-200 dark:hover:bg-slate-800" aria-label="Toggle menu">
+          <i data-lucide="menu" class="w-6 h-6"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mobile menu -->
+    <div id="mobileMenu" class="hidden md:hidden border-t border-slate-200 bg-white dark:bg-slate-950 dark:border-slate-800">
+      <div class="px-4 py-3 space-y-1 text-sm font-medium">
+        <a href="#about"       class="block py-2 text-slate-700 hover:text-brand-600 dark:text-slate-200">About</a>
+        <a href="#how-to-use"  class="block py-2 text-slate-700 hover:text-brand-600 dark:text-slate-200">How to Use</a>
+        <a href="#features"    class="block py-2 text-slate-700 hover:text-brand-600 dark:text-slate-200">Features</a>
+        <a href="#screenshots" class="block py-2 text-slate-700 hover:text-brand-600 dark:text-slate-200">Screenshots</a>
+        <a href="#download"    class="block py-2 text-slate-700 hover:text-brand-600 dark:text-slate-200">Download</a>
+        <a href="#contact"     class="block py-2 text-slate-700 hover:text-brand-600 dark:text-slate-200">Contact</a>
+        <a href="#download"    class="mt-2 inline-flex items-center gap-2 bg-brand-600 text-white px-4 py-2 rounded-lg">
+          <i data-lucide="download" class="w-4 h-4"></i> Download APK
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- ========== HERO ========== -->
+  <section id="home" class="relative pt-28 pb-20 lg:pt-36 lg:pb-28 overflow-hidden">
+    <div class="absolute inset-0 -z-10 hero-gradient"></div>
+    <div class="absolute -z-10 inset-x-0 top-0 h-[600px] bg-gradient-to-b from-brand-50/70 dark:from-slate-950 to-transparent"></div>
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid lg:grid-cols-2 gap-12 items-center">
+      <div data-aos="fade-right">
+        <span class="inline-flex items-center gap-2 bg-brand-50 text-brand-700 text-xs font-semibold px-3 py-1.5 rounded-full border border-brand-100">
+          <i data-lucide="sparkles" class="w-3.5 h-3.5"></i> Now available on Android
+        </span>
+        <h1 class="mt-5 text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-slate-900 dark:text-white leading-[1.1]">
+          TLC <span class="text-brand-600">E-ReServe:</span><br />
+          <span class="text-slate-700 dark:text-slate-200 text-3xl sm:text-4xl lg:text-5xl font-bold">A Mobile Based Facility Reservation System for TLC</span>
+        </h1>
+        <p class="mt-4 text-lg text-brand-700 font-medium">Simple and Smart Facility Reservation.</p>
+        <p class="mt-4 text-slate-600 dark:text-slate-300 text-base sm:text-lg max-w-xl">
+          A modern reservation system built for schools and institutions. Reserve facilities in seconds  track approvals, manage reservations , and stay organized, all from your Android device.
+        </p>
+
+        <div class="mt-8 flex flex-wrap items-center gap-4">
+          <a href="assets/app.apk" download class="inline-flex items-center gap-2 bg-brand-600 hover:bg-brand-700 text-white font-semibold px-6 py-3 rounded-xl shadow-soft hover:shadow-lg transition transform hover:-translate-y-0.5">
+            <i data-lucide="download" class="w-5 h-5"></i> Download APK
+          </a>
+          <a href="#how-to-use" class="inline-flex items-center gap-2 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 hover:border-brand-300 text-slate-700 dark:text-slate-100 font-semibold px-6 py-3 rounded-xl transition">
+            <i data-lucide="play-circle" class="w-5 h-5"></i> How it Works
+          </a>
+        </div>
+
+        <div class="mt-8 flex items-center gap-5">
+          <img src="assets/qr-code.svg" alt="Download QR Code" class="w-24 h-24 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-950 p-2 shadow-soft" />
+          <div>
+            <p class="font-semibold text-slate-900 dark:text-white">Scan to download</p>
+            <p class="text-sm text-slate-500 dark:text-slate-400">Point your phone camera at the QR code</p>
+            <p class="text-xs text-slate-400 mt-1">Android 8.0+ • ~143 MB</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Phone mockup -->
+      <div class="relative flex justify-center lg:justify-end" data-aos="fade-left">
+        <div class="phone-mockup">
+          <div class="phone-notch"></div>
+          <div class="phone-screen">
+            <img src="assets/home.png" alt="TLC E-Reserve App Preview" class="w-full h-full object-cover" />
+          </div>
+        </div>
+        <!-- Floating cards -->
+        <div class="hidden sm:flex absolute top-8 -left-4 lg:left-0 items-center gap-3 bg-white dark:bg-slate-900 rounded-2xl shadow-soft px-4 py-3 border border-slate-100 dark:border-slate-800" data-aos="zoom-in" data-aos-delay="300">
+          <span class="w-9 h-9 rounded-lg bg-emerald-100 text-emerald-600 inline-flex items-center justify-center">
+            <i data-lucide="check-circle-2" class="w-5 h-5"></i>
+          </span>
+          <div>
+            <p class="text-xs text-slate-500 dark:text-slate-400">Reservation</p>
+            <p class="text-sm font-semibold text-slate-800 dark:text-slate-100">Approved</p>
+          </div>
+        </div>
+        <div class="hidden sm:flex absolute bottom-12 -right-2 lg:right-6 items-center gap-3 bg-white dark:bg-slate-900 rounded-2xl shadow-soft px-4 py-3 border border-slate-100 dark:border-slate-800" data-aos="zoom-in" data-aos-delay="500">
+          <span class="w-9 h-9 rounded-lg bg-brand-100 text-brand-600 inline-flex items-center justify-center">
+            <i data-lucide="calendar-days" class="w-5 h-5"></i>
+          </span>
+          <div>
+            <p class="text-xs text-slate-500 dark:text-slate-400">Multi-date</p>
+            <p class="text-sm font-semibold text-slate-800 dark:text-slate-100">Booking</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== ABOUT ========== -->
+  <section id="about" class="py-20 lg:py-28 bg-slate-50 dark:bg-slate-900/40">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="max-w-3xl mx-auto text-center" data-aos="fade-up">
+        <span class="text-brand-600 text-sm font-semibold uppercase tracking-wider">About the App</span>
+        <h2 class="mt-2 text-3xl sm:text-4xl font-bold text-slate-900 dark:text-white">A smarter way to manage reservations</h2>
+        <p class="mt-4 text-slate-600 dark:text-slate-300 text-lg">
+          TLC E-ReServe is a Facility Reservation System designed for TLC  institutions. It streamlines the way faculty, and administrators reserve facilities, and equipment  replacing manual logbooks with a fast, centralized digital workflow.
+        </p>
+      </div>
+
+      <div class="mt-14 grid md:grid-cols-3 gap-6">
+        <div class="bg-white dark:bg-slate-900 rounded-2xl p-6 border border-slate-100 dark:border-slate-800 shadow-soft hover:-translate-y-1 transition" data-aos="fade-up">
+          <span class="w-11 h-11 rounded-xl bg-brand-50 text-brand-600 inline-flex items-center justify-center"><i data-lucide="target" class="w-5 h-5"></i></span>
+          <h3 class="mt-4 font-semibold text-slate-900 dark:text-white">Purpose</h3>
+          <p class="mt-2 text-sm text-slate-600 dark:text-slate-400">Centralize the entire reservation process from request to approval into a single mobile platform.</p>
+        </div>
+        <div class="bg-white dark:bg-slate-900 rounded-2xl p-6 border border-slate-100 dark:border-slate-800 shadow-soft hover:-translate-y-1 transition" data-aos="fade-up" data-aos-delay="100">
+          <span class="w-11 h-11 rounded-xl bg-brand-50 text-brand-600 inline-flex items-center justify-center"><i data-lucide="users" class="w-5 h-5"></i></span>
+          <h3 class="mt-4 font-semibold text-slate-900 dark:text-white">Who Can Use It</h3>
+          <p class="mt-2 text-sm text-slate-600 dark:text-slate-400">Faculty and Administrators with assigned tlc email accounts. Admins manage approvals; users submit and track requests.</p>
+        </div>
+        <div class="bg-white dark:bg-slate-900 rounded-2xl p-6 border border-slate-100 dark:border-slate-800 shadow-soft hover:-translate-y-1 transition" data-aos="fade-up" data-aos-delay="200">
+          <span class="w-11 h-11 rounded-xl bg-brand-50 text-brand-600 inline-flex items-center justify-center"><i data-lucide="trending-up" class="w-5 h-5"></i></span>
+          <h3 class="mt-4 font-semibold text-slate-900 dark:text-white">Benefits</h3>
+          <p class="mt-2 text-sm text-slate-600 dark:text-slate-400">Easy reservations, multi-date reserving, approval workflow, and real-time reservation tracking — all in your pocket.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== HOW TO USE ========== -->
+  <section id="how-to-use" class="py-20 lg:py-28">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="max-w-3xl mx-auto text-center" data-aos="fade-up">
+        <span class="text-brand-600 text-sm font-semibold uppercase tracking-wider">How to Use</span>
+        <h2 class="mt-2 text-3xl sm:text-4xl font-bold text-slate-900 dark:text-white">Get started in 8 simple steps</h2>
+        <p class="mt-4 text-slate-600 dark:text-slate-300 text-lg">From download to approved reservation, here's the full flow.</p>
+      </div>
+
+      <div class="mt-14 grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <!-- Step cards -->
+        <div class="step-card" data-aos="fade-up">
+          <div class="step-number">1</div>
+          <i data-lucide="qr-code" class="step-icon"></i>
+          <h3>Download the APK</h3>
+          <p class="text-slate-600 dark:text-slate-400">Scan the QR code or click the download button on this page.</p>
+        </div>
+        <div class="step-card" data-aos="fade-up" data-aos-delay="50">
+          <div class="step-number">2</div>
+          <i data-lucide="smartphone" class="step-icon"></i>
+          <h3>Install on Android</h3>
+          <p class="text-slate-600 dark:text-slate-400">Open the APK file and allow installation from unknown sources.</p>
+        </div>
+        <div class="step-card" data-aos="fade-up" data-aos-delay="100">
+          <div class="step-number">3</div>
+          <i data-lucide="log-in" class="step-icon"></i>
+          <h3>Login</h3>
+          <p class="text-slate-600 dark:text-slate-400">Sign in using your TLC Email.</p>
+        </div>
+        <div class="step-card" data-aos="fade-up" data-aos-delay="150">
+          <div class="step-number">4</div>
+          <i data-lucide="building-2" class="step-icon"></i>
+          <h3>Select Facility</h3>
+          <p class="text-slate-600 dark:text-slate-400">Browse available facilities that you want to reserve.</p>
+        </div>
+        <div class="step-card" data-aos="fade-up" data-aos-delay="200">
+          <div class="step-number">5</div>
+          <i data-lucide="calendar-range" class="step-icon"></i>
+          <h3>Choose Date & Time</h3>
+          <p class="text-slate-600 dark:text-slate-400">Pick single or toggle to multiple dates. Custom, Half-day or full-day reservation.</p>
+        </div>
+        <div class="step-card" data-aos="fade-up" data-aos-delay="250">
+          <div class="step-number">6</div>
+          <i data-lucide="send" class="step-icon"></i>
+          <h3>Submit Reservation</h3>
+          <p class="text-slate-600 dark:text-slate-400">Review your details and submit your request.</p>
+        </div>
+        <div class="step-card" data-aos="fade-up" data-aos-delay="300">
+          <div class="step-number">7</div>
+          <i data-lucide="hourglass" class="step-icon"></i>
+          <h3>Wait for Approval</h3>
+          <p class="text-slate-600 dark:text-slate-400">Admin reviews your request get notified when it's decided.</p>
+        </div>
+        <div class="step-card" data-aos="fade-up" data-aos-delay="350">
+          <div class="step-number">8</div>
+          <i data-lucide="list-checks" class="step-icon"></i>
+          <h3>View Status</h3>
+          <p class="text-slate-600 dark:text-slate-400">Track your reservation history and current statuses anytime.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== FEATURES ========== -->
+  <section id="features" class="py-20 lg:py-28 bg-slate-50 dark:bg-slate-900/40">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="max-w-3xl mx-auto text-center" data-aos="fade-up">
+        <span class="text-brand-600 text-sm font-semibold uppercase tracking-wider">Features</span>
+        <h2 class="mt-2 text-3xl sm:text-4xl font-bold text-slate-900 dark:text-white">Everything you need, nothing you don't</h2>
+        <p class="mt-4 text-slate-600 dark:text-slate-300 text-lg">Designed for clarity, speed, and real institutional use.</p>
+      </div>
+
+      <div class="mt-14 grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div class="feature-card" data-aos="fade-up">
+          <span class="feature-icon"><i data-lucide="calendar-days"></i></span>
+          <h3>Multi-date Reservation</h3>
+          <p class="text-slate-600 dark:text-slate-400">Reserve multiple dates in a single request perfect for recurring events.</p>
+        </div>
+        <div class="feature-card" data-aos="fade-up" data-aos-delay="50">
+          <span class="feature-icon"><i data-lucide="clock"></i></span>
+          <h3>Custom, Half-day & Full-day Reserving</h3>
+          <p class="text-slate-600 dark:text-slate-400">Flexible time slots that match how schools really schedule.</p>
+        </div>
+        <div class="feature-card" data-aos="fade-up" data-aos-delay="100">
+          <span class="feature-icon"><i data-lucide="shield-check"></i></span>
+          <h3>Admin Approval System</h3>
+          <p class="text-slate-600 dark:text-slate-400">Built-in workflow keeps administrators in full control of reservations.</p>
+        </div>
+        <div class="feature-card" data-aos="fade-up" data-aos-delay="150">
+          <span class="feature-icon"><i data-lucide="history"></i></span>
+          <h3>Reservation History</h3>
+          <p class="text-slate-600 dark:text-slate-400">Complete log of past and ongoing reservations for every user.</p>
+        </div>
+        <div class="feature-card" data-aos="fade-up" data-aos-delay="200">
+          <span class="feature-icon"><i data-lucide="arrow-down-up"></i></span>
+          <h3>Sorting & Time-Ago Display</h3>
+          <p class="text-slate-600 dark:text-slate-400">Sort by date or status, with friendly "2 hours ago" timestamps.</p>
+        </div>
+        <div class="feature-card" data-aos="fade-up" data-aos-delay="250">
+          <span class="feature-icon"><i data-lucide="image"></i></span>
+          <h3>Image Preview of Facilities</h3>
+          <p class="text-slate-600 dark:text-slate-400">See photos of each room or facility before you reserve.</p>
+        </div>
+        <div class="feature-card" data-aos="fade-up" data-aos-delay="300">
+          <span class="feature-icon"><i data-lucide="moon"></i></span>
+          <h3>Dark & Light Mode</h3>
+          <p class="text-slate-600 dark:text-slate-400">Comfortable viewing day or night with smooth theme switching.</p>
+        </div>
+        <div class="feature-card" data-aos="fade-up" data-aos-delay="350">
+          <span class="feature-icon"><i data-lucide="bell-ring"></i></span>
+          <h3>Real-time Notifications</h3>
+          <p class="text-slate-600 dark:text-slate-400">Stay updated whenever your reservation status changes.</p>
+        </div>
+        <div class="feature-card" data-aos="fade-up" data-aos-delay="400">
+          <span class="feature-icon"><i data-lucide="lock"></i></span>
+          <h3>Secure Authentication</h3>
+          <p class="text-slate-600 dark:text-slate-400">Account-based access keeps reservations private and authorized.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== SCREENSHOTS ========== -->
+  <section id="screenshots" class="py-20 lg:py-28">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="max-w-3xl mx-auto text-center" data-aos="fade-up">
+        <span class="text-brand-600 text-sm font-semibold uppercase tracking-wider">Screenshots</span>
+        <h2 class="mt-2 text-3xl sm:text-4xl font-bold text-slate-900 dark:text-white">A look inside the app</h2>
+        <p class="mt-4 text-slate-600 dark:text-slate-300 text-lg">Tap any image to enlarge.</p>
+      </div>
+
+      <div class="mt-14 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-6">
+        <button class="screenshot" data-aos="zoom-in"><span class="ss-notch"></span><img src="assets/login.png" alt="Login screen" /><span class="ss-pill"></span></button>
+        <button class="screenshot" data-aos="zoom-in" data-aos-delay="50"><span class="ss-notch"></span><img src="assets/reserve.jpg" alt="Dashboard" /><span class="ss-pill"></span></button>
+        <button class="screenshot" data-aos="zoom-in" data-aos-delay="100"><span class="ss-notch"></span><img src="assets/myreservation.jpg " alt="Facility list" /><span class="ss-pill"></span></button>
+        <button class="screenshot" data-aos="zoom-in" data-aos-delay="150"><span class="ss-notch"></span><img src="assets/notif.jpg" alt="Reservation form" /><span class="ss-pill"></span></button>
+        <button class="screenshot" data-aos="zoom-in" data-aos-delay="200"><span class="ss-notch"></span><img src="assets/home.jpg" alt="Reservation status" /><span class="ss-pill"></span></button>
+        <button class="screenshot" data-aos="zoom-in" data-aos-delay="250"><span class="ss-notch"></span><img src="assets/history.jpg" alt="Admin approvals" /><span class="ss-pill"></span></button>
+      </div>
+    </div>
+
+    <!-- Lightbox -->
+    <div id="lightbox" class="hidden fixed inset-0 z-[60] bg-slate-900/90 backdrop-blur items-center justify-center p-4">
+      <button id="lightboxClose" class="absolute top-5 right-5 text-white/80 hover:text-white" aria-label="Close">
+        <i data-lucide="x" class="w-8 h-8"></i>
+      </button>
+      <div class="lb-phone">
+        <div class="lb-notch"></div>
+        <div class="lb-speaker"></div>
+        <div class="lb-vol-up"></div>
+        <div class="lb-vol-dn"></div>
+        <div class="lb-power"></div>
+        <div class="lb-screen">
+          <img id="lightboxImg" src="" alt="" />
+        </div>
+        <div class="lb-pill"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== DOWNLOAD ========== -->
+  <section id="download" class="py-20 lg:py-28 relative overflow-hidden">
+    <div class="absolute inset-0 -z-10 bg-gradient-to-br from-brand-600 to-brand-800"></div>
+    <div class="absolute inset-0 -z-10 opacity-20" style="background-image: radial-gradient(white 1px, transparent 1px); background-size: 24px 24px;"></div>
+
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="bg-white/10 dark:bg-slate-900/20 backdrop-blur border border-white/20 dark:border-slate-800/20 rounded-3xl p-8 sm:p-12 grid md:grid-cols-2 gap-10 items-center" data-aos="fade-up">
+        <div class="text-white">
+          <h2 class="text-3xl sm:text-4xl font-bold leading-tight">Download TLC E-ReServe APK</h2>
+          <p class="mt-4 text-brand-100 text-lg">Scan the QR code or click the button below to download the latest version.</p>
+
+          <a href="https://expo.dev/accounts/mcdevs/projects/tlc-e-reserve/builds/cd099cd7-b76c-4190-b8c6-ddb64a12faec" download class="mt-8 inline-flex items-center gap-2 bg-white dark:bg-slate-900 text-brand-700 dark:text-brand-100 hover:bg-brand-50 font-semibold px-6 py-3 rounded-xl shadow-soft transition transform hover:-translate-y-0.5">
+            <i data-lucide="download" class="w-5 h-5"></i> Download APK
+          </a>
+
+          <dl class="mt-8 grid grid-cols-3 gap-4 text-sm">
+            <div class="bg-white/10 dark:bg-slate-900/20 rounded-xl px-4 py-3 border border-white/15 dark:border-slate-800/15">
+              <dt class="text-brand-100">Version</dt>
+              <dd class="font-semibold mt-1">1.0.0</dd>
+            </div>
+            <div class="bg-white/10 dark:bg-slate-900/20 rounded-xl px-4 py-3 border border-white/15 dark:border-slate-800/15">
+              <dt class="text-brand-100">File Size</dt>
+              <dd class="font-semibold mt-1">~145 MB</dd>
+            </div>
+            <div class="bg-white/10 dark:bg-slate-900/20 rounded-xl px-4 py-3 border border-white/15 dark:border-slate-800/15">
+              <dt class="text-brand-100">Android</dt>
+              <dd class="font-semibold mt-1">8.0+</dd>
+            </div>
+          </dl>
+        </div>
+
+        <div class="flex justify-center">
+          <div class="bg-white dark:bg-slate-950 rounded-3xl p-6 shadow-2xl">
+            <img src="assets/qr-code.svg" alt="Download QR" class="w-56 h-56 sm:w-64 sm:h-64" />
+            <p class="mt-3 text-center text-sm font-semibold text-slate-700 dark:text-slate-200">Scan with your phone</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== SYSTEM INFO ========== -->
+  <section id="contact" class="py-20 lg:py-28 bg-slate-50 dark:bg-slate-900/40">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="max-w-3xl mx-auto text-center" data-aos="fade-up">
+        <span class="text-brand-600 text-sm font-semibold uppercase tracking-wider">System Information</span>
+        <h2 class="mt-2 text-3xl sm:text-4xl font-bold text-slate-900 dark:text-white">About this release</h2>
+      </div>
+
+      <div class="mt-14 grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div class="info-card" data-aos="fade-up">
+          <span class="info-icon"><i data-lucide="badge-info"></i></span>
+          <h3>App Version</h3>
+          <p>Version 1.0.0</p>
+        </div>
+        <div class="info-card" data-aos="fade-up" data-aos-delay="50">
+          <span class="info-icon"><i data-lucide="user-cog"></i></span>
+          <h3>Developer</h3>
+          <p>Mark L. Sicad</p>
+        </div>
+        <div class="info-card" data-aos="fade-up" data-aos-delay="100">
+          <span class="info-icon"><i data-lucide="file-text"></i></span>
+          <h3>System Description</h3>
+          <p>A Mobile-Based Facility Reservation System for TLC.</p>
+        </div>
+        <div class="info-card" data-aos="fade-up" data-aos-delay="150">
+          <span class="info-icon"><i data-lucide="smartphone"></i></span>
+          <h3>Supported Devices</h3>
+          <p>Android 7.1.1  and above</p>
+        </div>
+        <div class="info-card" data-aos="fade-up" data-aos-delay="200">
+          <span class="info-icon"><i data-lucide="mail"></i></span>
+          <h3>Contact Email</h3>
+          <p><a href="mailto:tlcadm1n.26@gmail.com" class="text-brand-600 hover:underline">tlcadm1n.26@gmail.com</a></p>
+        </div>
+        <div class="info-card" data-aos="fade-up" data-aos-delay="250">
+          <span class="info-icon"><i data-lucide="globe"></i></span>
+          <h3>Website</h3>
+          <p><a href="#" class="text-brand-600 hover:underline">www.TLC-E-ReServe.com</a></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== FOOTER ========== -->
+  <footer class="bg-slate-900 text-slate-300">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14">
+      <div class="grid md:grid-cols-4 gap-10">
+        <div class="md:col-span-2">
+          <div class="flex items-center">
+            <img src="assets/logo.png" alt="TLC E-Reserve" class="h-10 w-auto object-contain bg-white rounded-lg p-1.5" />
+          </div>
+          <p class="mt-4 text-sm text-slate-400 max-w-md">
+            TLC E-ReServe A Mobile-Based Facility Reservation System for TLC— designed to make  reservation simple, smart, and stress-free.
+          </p>
+        </div>
+
+        <div>
+          <h4 class="text-white font-semibold mb-3">Navigate</h4>
+          <ul class="space-y-2 text-sm">
+            <li><a href="#about" class="hover:text-white">About</a></li>
+            <li><a href="#features" class="hover:text-white">Features</a></li>
+            <li><a href="#download" class="hover:text-white">Download</a></li>
+            <li><a href="#contact" class="hover:text-white">Contact</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="text-white font-semibold mb-3">Contact</h4>
+          <ul class="space-y-2 text-sm">
+            <li class="flex items-center gap-2"><i data-lucide="mail" class="w-4 h-4"></i> tlcadm1n.26@gmail.com</li>
+            <li class="flex items-center gap-2"><i data-lucide="phone" class="w-4 h-4"></i> +63 991 372 6939</li>
+            <li class="flex items-center gap-2"><i data-lucide="map-pin" class="w-4 h-4"></i> Philippines</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="mt-12 pt-6 border-t border-slate-800 flex flex-col sm:flex-row items-center justify-between gap-3 text-sm text-slate-400">
+        <p>&copy; <span id="year"></span> TLC E-ReServe. All rights reserved.</p>
+        <p>Developed by <span class="text-white font-medium">Mark L. Sicad</span></p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- AOS -->
+  <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
